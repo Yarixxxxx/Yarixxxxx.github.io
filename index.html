@@ -53,7 +53,7 @@
             width: 100%;
             padding: 20px;
             font-size: 18px;
-            margin-top: 60px;
+            margin-top: 20px;
             background-color: var(--button-background-color);
             color: var(--button-text-color);
             border: none;
@@ -62,9 +62,6 @@
         }
         button:hover {
             background-color: var(--button-hover-background-color);
-        }
-        #cart {
-            margin-top: 30px;
         }
         .remove-button {
             margin-left: 10px;
@@ -98,17 +95,25 @@
             --button-text-color: #ffffff;
             --button-hover-background-color: #6ba374;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div id="menu">
-        <!-- Menu categories will be dynamically generated here -->
+    <div id="menuPage">
+        <div id="menu">
+            <!-- Menu categories will be dynamically generated here -->
+        </div>
+        <button type="button" onclick="navigateToCart()">Перейти в корзину</button>
     </div>
-    <button type="button" onclick="submitOrder()">Сделать заказ</button>
-    <div id="cart">
+
+    <div id="cartPage" class="hidden">
         <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
         <p id="totalPrice">Total: $0</p>
+        <button type="button" onclick="submitOrder()">Сделать заказ</button>
+        <button type="button" onclick="navigateToMenu()">Вернуться к меню</button>
     </div>
 
     <script>
@@ -224,6 +229,16 @@
                     addToCart();
                 }
             });
+        }
+
+        function navigateToCart() {
+            document.getElementById('menuPage').classList.add('hidden');
+            document.getElementById('cartPage').classList.remove('hidden');
+        }
+
+        function navigateToMenu() {
+            document.getElementById('cartPage').classList.add('hidden');
+            document.getElementById('menuPage').classList.remove('hidden');
         }
 
         function applyTheme() {
