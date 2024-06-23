@@ -11,11 +11,18 @@
         h1 {
             text-align: center;
         }
-        ul {
+        .category {
+            margin: 20px 0;
+        }
+        .category h2 {
+            cursor: pointer;
+        }
+        .category ul {
             list-style-type: none;
             padding: 0;
+            display: none;
         }
-        li {
+        .category li {
             margin: 10px 0;
             padding: 10px;
             border: 1px solid #ccc;
@@ -36,24 +43,43 @@
         button:hover {
             background-color: #45a049;
         }
+        #cart {
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
     <h1>Menu</h1>
-    <form id="orderForm">
-        <ul>
-            {% for item in menu %}
-            <li>
-                <label>
-                    <input type="checkbox" name="order" value="{{ item.id }}"> {{ item.name }} - ${{ item.price }}
-                </label>
-            </li>
-            {% endfor %}
-        </ul>
-        <button type="button" onclick="submitOrder()">Place Order</button>
-    </form>
+    <div id="menu">
+        {% for category, items in menu.items() %}
+        <div class="category">
+            <h2 onclick="toggleCategory(this)">{{ category }}</h2>
+            <ul>
+                {% for item in items %}
+                <li>
+                    <label>
+                        <input type="checkbox" name="order" value="{{ item.id }}"> {{ item.name }} - ${{ item.price }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+    <button type="button" onclick="submitOrder()">Place Order</button>
+
+    <div id="cart">
+        <h2>Cart</h2>
+        <ul id="cartItems"></ul>
+        <p id="totalPrice">Total: $0</p>
+    </div>
 
     <script>
+        function toggleCategory(element) {
+            const ul = element.nextElementSibling;
+            ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
+        }
+
         function submitOrder() {
             const selectedItems = Array.from(document.querySelectorAll('input[name="order"]:checked')).map(cb => cb.value);
             const data = { items: selectedItems };
@@ -71,6 +97,29 @@
                   }
               });
         }
+
+        function updateCart() {
+            const selectedItems = Array.from(document.querySelectorAll('input[name="order"]:checked'));
+            const cartItems = document.getElementById('cartItems');
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            selectedItems.forEach(cb => {
+                const item = cb.closest('label').textContent.trim();
+                const price = parseFloat(item.split('- $')[1]);
+                total += price;
+
+                const li = document.createElement('li');
+                li.textContent = item;
+                cartItems.appendChild(li);
+            });
+
+            document.getElementById('totalPrice').textContent = `Total: $${total}`;
+        }
+
+        document.querySelectorAll('input[name="order"]').forEach(cb => {
+            cb.addEventListener('change', updateCart);
+        });
 
         Telegram.WebApp.ready();
     </script>
