@@ -113,10 +113,21 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         .popup img {
             width: 200px;
             height: 200px;
+        }
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 48px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-color);
         }
     </style>
 </head>
@@ -131,8 +142,9 @@
         <p id="totalPrice">Total: $0</p>
     </div>
 
-    <div id="popup" class="popup">
+    <div id="popup" class="popup" onTouchStart="startTouch(event)" onTouchMove="moveTouch(event)">
         <div class="popup-content">
+            <button class="close-button" onclick="closePopup()">✖</button>
             <img id="popupImage" src="" alt="Item Image">
             <h2 id="popupTitle"></h2>
             <p id="popupPrice"></p>
@@ -155,6 +167,7 @@
         };
 
         let selectedItem = null;
+        let initialY = null;
 
         function submitOrder() {
             const selectedItems = Object.keys(orders);
@@ -254,6 +267,23 @@
             applyTheme();
             Telegram.WebApp.ready();
         });
+
+        function startTouch(event) {
+            initialY = event.touches[0].clientY;
+        }
+
+        function moveTouch(event) {
+            if (initialY === null) {
+                return;
+            }
+
+            const currentY = event.touches[0].clientY;
+            const diffY = initialY - currentY;
+
+            if (diffY < -50) {
+                closePopup();
+            }
+        }
     </script>
 </body>
 </html>
