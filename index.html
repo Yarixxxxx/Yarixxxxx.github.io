@@ -8,12 +8,12 @@
             margin: 20px;
             background-color: var(--background-color);
             color: var(--text-color);
-            font-size: 36px; 
+            font-size: 36px;
         }
         h1, h2 {
             text-align: center;
             color: var(--header-color);
-            font-size: 48px; 
+            font-size: 48px;
         }
         .category {
             margin: 20px 0;
@@ -32,12 +32,21 @@
             border: 1px solid var(--border-color);
             border-radius: 5px;
             background-color: var(--item-background-color);
-            font-size: 36px; 
+            font-size: 36px;
         }
-        .category img {
-            width: 50px;
-            height: 50px;
+        .item-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .item-container img {
+            width: 100px;
+            height: 100px;
             margin-right: 20px;
+        }
+        .item-container label {
+            display: flex;
+            align-items: center;
         }
         button {
             display: block;
@@ -89,7 +98,7 @@
     <div id="cart">
         <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
-        <p id="totalPrice">Итого: $0</p>
+        <p id="totalPrice">Total: $0</p>
     </div>
     <script>
         const menu = {
@@ -100,7 +109,7 @@
             ],
             'Напитки': [
                 {'id': '4', 'name': 'Газировка', 'price': 2, 'image': 'path/to/soda.jpg'},
-                {'id': '5', 'name': 'Вода', 'price': 1, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/f32c6b6352e3cd19c8f81ca107aa78fe.jpg?raw=true'},
+                {'id': '5', 'name': 'Вода', 'price': 1, 'image': 'path/to/water.jpg'},
                 {'id': '6', 'name': 'Сок', 'price': 3, 'image': 'path/to/juice.jpg'},
             ]
         };
@@ -154,6 +163,13 @@
                 const ul = document.createElement('ul');
                 items.forEach(item => {
                     const li = document.createElement('li');
+                    const itemContainer = document.createElement('div');
+                    itemContainer.className = 'item-container';
+
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = item.name;
+
                     const label = document.createElement('label');
                     const checkbox = document.createElement('input');
                     checkbox.type = 'checkbox';
@@ -161,14 +177,11 @@
                     checkbox.value = item.id;
                     checkbox.addEventListener('change', updateCart);
 
-                    const img = document.createElement('img');
-                    img.src = item.image;
-                    img.alt = item.name;
-
-                    li.appendChild(img);
                     label.appendChild(checkbox);
                     label.appendChild(document.createTextNode(` ${item.name} - $${item.price}`));
-                    li.appendChild(label);
+                    itemContainer.appendChild(img);
+                    itemContainer.appendChild(label);
+                    li.appendChild(itemContainer);
                     ul.appendChild(li);
                 });
                 categoryDiv.appendChild(ul);
