@@ -22,15 +22,22 @@
             list-style-type: none;
             padding: 0;
             font-size: 36px;
-            display: none;
+            display: block; /* Display list items by default */
         }
         .category li {
+            display: flex;
+            align-items: center;
             margin: 10px 0;
             padding: 10px;
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            border-radius:5px;
             background-color: var(--item-background-color);
             font-size: 36px; 
+        }
+        .category img {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
         }
         button {
             display: block;
@@ -87,21 +94,16 @@
     <script>
         const menu = {
             'Снэки': [
-                {'id': '1', 'name': 'Чипсы', 'price': 3},
-                {'id': '2', 'name': 'Луковые кольца', 'price': 4},
-                {'id': '3', 'name': 'Начос', 'price': 5},
+                {'id': '1', 'name': 'Чипсы', 'price': 3, 'image': 'path/to/fries.jpg'},
+                {'id': '2', 'name': 'Луковые кольца', 'price': 4, 'image': 'path/to/onion_rings.jpg'},
+                {'id': '3', 'name': 'Начос', 'price': 5, 'image': 'path/to/nachos.jpg'},
             ],
             'Напитки': [
-                {'id': '4', 'name': 'Газировка', 'price': 2},
-                {'id': '5', 'name': 'Вода', 'price': 1},
-                {'id': '6', 'name': 'Сок', 'price': 3},
+                {'id': '4', 'name': 'Газировка', 'price': 2, 'image': 'path/to/soda.jpg'},
+                {'id': '5', 'name': 'Вода', 'price': 1, 'image': 'path/to/water.jpg'},
+                {'id': '6', 'name': 'Сок', 'price': 3, 'image': 'path/to/juice.jpg'},
             ]
         };
-
-        function toggleCategory(element) {
-            const ul = element.nextElementSibling;
-            ul.style.display = ul.style.display === 'none' ? 'block' : 'none';
-        }
 
         function submitOrder() {
             const selectedItems = Array.from(document.querySelectorAll('input[name="order"]:checked')).map(cb => cb.value);
@@ -148,7 +150,6 @@
                 categoryDiv.className = 'category';
                 const categoryHeader = document.createElement('h2');
                 categoryHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-                categoryHeader.onclick = () => toggleCategory(categoryHeader);
                 categoryDiv.appendChild(categoryHeader);
                 const ul = document.createElement('ul');
                 items.forEach(item => {
@@ -160,6 +161,12 @@
                     checkbox.value = item.id;
                     checkbox.addEventListener('change', updateCart);
                     label.appendChild(checkbox);
+
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = item.name;
+                    label.appendChild(img);
+
                     label.appendChild(document.createTextNode(` ${item.name} - $${item.price}`));
                     li.appendChild(label);
                     ul.appendChild(li);
