@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Menu</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Montserrat, sans-serif;
             margin: 20px;
             background-color: var(--background-color);
             color: var(--text-color);
-            font-size: 36px; /* Increased font size */
+            font-size: 36px; 
         }
         h1, h2 {
             text-align: center;
             color: var(--header-color);
-            font-size: 48px; /* Increased font size */
+            font-size: 48px; 
         }
         .category {
             margin: 20px 0;
@@ -22,6 +21,7 @@
         .category ul {
             list-style-type: none;
             padding: 0;
+            font-size: 36px;
             display: none;
         }
         .category li {
@@ -30,13 +30,13 @@
             border: 1px solid var(--border-color);
             border-radius: 5px;
             background-color: var(--item-background-color);
-            font-size: 36px; /* Increased font size */
+            font-size: 36px; 
         }
         button {
             display: block;
             width: 100%;
             padding: 10px;
-            font-size: 36px; /* Increased font size */
+            font-size: 36px;
             margin-top: 20px;
             background-color: var(--button-background-color);
             color: var(--button-text-color);
@@ -51,7 +51,6 @@
             margin-top: 30px;
         }
 
-        /* Light theme */
         :root {
             --background-color: #ffffff;
             --text-color: #000000;
@@ -63,7 +62,6 @@
             --button-hover-background-color: #45a049;
         }
 
-        /* Dark theme */
         .dark {
             --background-color: #1e1e1e;
             --text-color: #ffffff;
@@ -77,27 +75,26 @@
     </style>
 </head>
 <body>
-    <h1>Menu</h1>
     <div id="menu">
         <!-- Menu categories will be dynamically generated here -->
     </div>
-    <button type="button" onclick="submitOrder()">Place Order</button>
+    <button type="button" onclick="submitOrder()">Сделать заказ</button>
     <div id="cart">
-        <h2>Cart</h2>
+        <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
         <p id="totalPrice">Total: $0</p>
     </div>
     <script>
         const menu = {
-            'snacks': [
-                {'id': '1', 'name': 'Fries', 'price': 3},
-                {'id': '2', 'name': 'Onion Rings', 'price': 4},
-                {'id': '3', 'name': 'Nachos', 'price': 5},
+            'Снэки': [
+                {'id': '1', 'name': 'Чипсы', 'price': 3},
+                {'id': '2', 'name': 'Луковые кольца', 'price': 4},
+                {'id': '3', 'name': 'Начос', 'price': 5},
             ],
-            'drinks': [
-                {'id': '4', 'name': 'Soda', 'price': 2},
-                {'id': '5', 'name': 'Water', 'price': 1},
-                {'id': '6', 'name': 'Juice', 'price': 3},
+            'Напитки': [
+                {'id': '4', 'name': 'Газировка', 'price': 2},
+                {'id': '5', 'name': 'Вода', 'price': 1},
+                {'id': '6', 'name': 'Сок', 'price': 3},
             ]
         };
 
