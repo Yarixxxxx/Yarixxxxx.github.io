@@ -89,46 +89,6 @@
             --button-text-color: #ffffff;
             --button-hover-background-color: #6ba374;
         }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .popup-content {
-            background-color: var(--background-color);
-            padding: 20px;
-            border-radius: 5px;
-            text-align: center;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .popup img {
-            width: 200px;
-            height: 200px;
-        }
-        .close-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 48px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--text-color);
-        }
     </style>
 </head>
 <body>
@@ -140,16 +100,6 @@
         <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
         <p id="totalPrice">Total: $0</p>
-    </div>
-
-    <div id="popup" class="popup" onTouchStart="startTouch(event)" onTouchMove="moveTouch(event)">
-        <div class="popup-content">
-            <button class="close-button" onclick="closePopup()">✖</button>
-            <img id="popupImage" src="" alt="Item Image">
-            <h2 id="popupTitle"></h2>
-            <p id="popupPrice"></p>
-            <button onclick="addToCart()">Добавить в корзину</button>
-        </div>
     </div>
 
     <script>
@@ -167,7 +117,6 @@
         };
 
         let selectedItem = null;
-        let initialY = null;
 
         function submitOrder() {
             const selectedItems = Object.keys(orders);
@@ -193,7 +142,6 @@
             if (selectedItem) {
                 orders[selectedItem.id] = selectedItem;
                 updateCart();
-                closePopup();
             }
         }
 
@@ -245,14 +193,18 @@
 
         function showPopup(item) {
             selectedItem = item;
-            document.getElementById('popupImage').src = item.image;
-            document.getElementById('popupTitle').textContent = item.name;
-            document.getElementById('popupPrice').textContent = `$${item.price}`;
-            document.getElementById('popup').style.display = 'flex';
-        }
-
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
+            Telegram.WebApp.showPopup({
+                title: item.name,
+                message: `Price: $${item.price}`,
+                buttons: [
+                    { id: 'add_to_cart', type: 'default', text: 'Добавить в корзину' },
+                    { id: 'close', type: 'close', text: 'Закрыть' }
+                ]
+            }, (buttonId) => {
+                if (buttonId === 'add_to_cart') {
+                    addToCart();
+                }
+            });
         }
 
         function applyTheme() {
@@ -267,23 +219,6 @@
             applyTheme();
             Telegram.WebApp.ready();
         });
-
-        function startTouch(event) {
-            initialY = event.touches[0].clientY;
-        }
-
-        function moveTouch(event) {
-            if (initialY === null) {
-                return;
-            }
-
-            const currentY = event.touches[0].clientY;
-            const diffY = initialY - currentY;
-
-            if (diffY < -50) {
-                closePopup();
-            }
-        }
     </script>
 </body>
 </html>
