@@ -30,7 +30,7 @@
             margin: 10px 0;
             padding: 10px;
             border: 1px solid var(--border-color);
-            border-radius:5px;
+            border-radius: 5px;
             background-color: var(--item-background-color);
             font-size: 36px; 
         }
@@ -87,9 +87,9 @@
     </div>
     <button type="button" onclick="submitOrder()">Сделать заказ</button>
     <div id="cart">
-        <h2>Корзина </h2>
+        <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
-        <p id="totalPrice">Total: $0</p>
+        <p id="totalPrice">Итого: $0</p>
     </div>
     <script>
         const menu = {
@@ -160,13 +160,13 @@
                     checkbox.name = 'order';
                     checkbox.value = item.id;
                     checkbox.addEventListener('change', updateCart);
-                    label.appendChild(checkbox);
 
                     const img = document.createElement('img');
                     img.src = item.image;
                     img.alt = item.name;
-                    label.appendChild(img);
 
+                    li.appendChild(img);
+                    label.appendChild(checkbox);
                     label.appendChild(document.createTextNode(` ${item.name} - $${item.price}`));
                     li.appendChild(label);
                     ul.appendChild(li);
