@@ -66,6 +66,18 @@
         #cart {
             margin-top: 30px;
         }
+        .remove-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
         :root {
             --background-color: #ffffff;
             --text-color: #000000;
@@ -142,6 +154,11 @@
             }
         }
 
+        function removeFromCart(itemId) {
+            delete orders[itemId];
+            updateCart();
+        }
+
         function updateCart() {
             const cartItems = document.getElementById('cartItems');
             cartItems.innerHTML = '';
@@ -150,6 +167,11 @@
             for (const item of Object.values(orders)) {
                 const li = document.createElement('li');
                 li.textContent = `${item.name} - $${item.price}`;
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.className = 'remove-button';
+                removeButton.onclick = () => removeFromCart(item.id);
+                li.appendChild(removeButton);
                 cartItems.appendChild(li);
                 total += item.price;
             }
