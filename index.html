@@ -118,15 +118,13 @@
 
     <script>
         const menu = {
-            'Снэки': [
-                {'id': '1', 'name': 'Чипсы', 'price': 3, 'image': 'path/to/fries.jpg'},
-                {'id': '2', 'name': 'Луковые кольца', 'price': 4, 'image': 'path/to/onion_rings.jpg'},
-                {'id': '3', 'name': 'Начос', 'price': 5, 'image': 'path/to/nachos.jpg'},
+            'New': [
+                {'id': '1', 'name': 'Cheese Maestro Burger', 'price': 409, 'image': 'path/to/cheese_maestro_burger.jpg'},
+                {'id': '2', 'name': 'Cheese Boxmaster', 'price': 439, 'image': 'path/to/cheese_boxmaster.jpg'},
+                {'id': '3', 'name': 'Maestro Veggie Burger', 'price': 299, 'image': 'path/to/maestro_veggie_burger.jpg'},
             ],
-            'Напитки': [
-                {'id': '4', 'name': 'Газировка', 'price': 2, 'image': 'path/to/soda.jpg'},
-                {'id': '5', 'name': 'Вода', 'price': 1, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/f32c6b6352e3cd19c8f81ca107aa78fe.jpg?raw=true'},
-                {'id': '6', 'name': 'Сок', 'price': 3, 'image': 'path/to/juice.jpg'},
+            'Lunch&Combo': [
+                {'id': '4', 'name': 'Prawn Rice Bowl', 'price': 300, 'image': 'path/to/prawn_rice_bowl.jpg'}
             ]
         };
 
@@ -171,7 +169,7 @@
 
             for (const item of Object.values(orders)) {
                 const li = document.createElement('li');
-                li.textContent = `${item.name} - $${item.price}`;
+                li.textContent = `${item.name} - ${item.price} ₽`;
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.className = 'remove-button';
@@ -181,7 +179,7 @@
                 total += item.price;
             }
 
-            document.getElementById('totalPrice').textContent = `Total: $${total}`;
+            document.getElementById('totalPrice').textContent = `Total: ${total} ₽`;
         }
 
         function renderMenu() {
@@ -191,7 +189,7 @@
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category';
                 const categoryHeader = document.createElement('h2');
-                categoryHeader.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                categoryHeader.textContent = category;
                 categoryDiv.appendChild(categoryHeader);
                 const ul = document.createElement('ul');
                 items.forEach(item => {
@@ -204,7 +202,7 @@
                     img.alt = item.name;
 
                     const label = document.createElement('label');
-                    label.textContent = ` ${item.name} - $${item.price}`;
+                    label.textContent = ` ${item.name} - ${item.price} ₽`;
 
                     li.appendChild(img);
                     li.appendChild(label);
@@ -219,7 +217,7 @@
             selectedItem = item;
             Telegram.WebApp.showPopup({
                 title: item.name,
-                message: `Price: $${item.price}`,
+                message: `Price: ${item.price} ₽`,
                 buttons: [
                     { id: 'add_to_cart', type: 'default', text: 'Добавить в корзину' },
                     { id: 'close', type: 'close', text: 'Закрыть' }
