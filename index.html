@@ -54,6 +54,7 @@
             width: 100%;
             padding: 20px;
             font-size: 18px;
+            font-family: 'Dancing Script', cursive; /* Apply the same font to button text */
             margin-top: 20px;
             background-color: var(--button-background-color);
             color: var(--button-text-color);
@@ -99,6 +100,9 @@
         .hidden {
             display: none;
         }
+        #totalPrice {
+            font-size: 24px; /* Increase the font size of the total price text */
+        }
     </style>
 </head>
 <body>
@@ -112,7 +116,7 @@
     <div id="cartPage" class="hidden">
         <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
-        <p id="totalPrice">Total: 0 ₽</p>
+        <p id="totalPrice">Итого: 0 ₽</p>
         <button type="button" onclick="checkAndSubmitOrder()">Сделать заказ</button>
         <button type="button" onclick="navigateToMenu()">Вернуться к меню</button>
     </div>
@@ -196,7 +200,7 @@
                 total += item.price * item.quantity;
             }
 
-            document.getElementById('totalPrice').textContent = `Total: ${total} ₽`;
+            document.getElementById('totalPrice').textContent = `Итого: ${total} ₽`;
         }
 
         function renderMenu() {
