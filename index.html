@@ -112,26 +112,40 @@
         <h2>Корзина: </h2>
         <ul id="cartItems"></ul>
         <p id="totalPrice">Total: 0 ₽</p>
-        <button type="button" onclick="submitOrder()">Сделать заказ</button>
+        <button type="button" onclick="checkAndSubmitOrder()">Сделать заказ</button>
         <button type="button" onclick="navigateToMenu()">Вернуться к меню</button>
     </div>
 
     <script>
         const menu = {
             'Салаты': [
-                {'id': '1', 'name': 'Морской салат', 'price': 559, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg'},
-                {'id': '2', 'name': 'Цезарь', 'price': 439, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg'},
+                {'id': '1', 'name': 'Морской салат', 'price': 559, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg?raw=true'},
+                {'id': '2', 'name': 'Цезарь', 'price': 439, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg?raw=true'},
                 {'id': '3', 'name': 'Витаминный салат', 'price': 499, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/vitamine.jpeg?raw=true'},
             ],
             'Супы': [
-                {'id': '4', 'name': 'Грибной суп', 'price': 329, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg'},
-                {'id': '5', 'name': 'Куриный суп', 'price': 359, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg'},
-                {'id': '6', 'name': 'Суп-пюре', 'price': 339, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg'},
+                {'id': '4', 'name': 'Грибной суп', 'price': 329, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg?raw=true'},
+                {'id': '5', 'name': 'Куриный суп', 'price': 359, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg?raw=true'},
+                {'id': '6', 'name': 'Суп-пюре', 'price': 339, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg?raw=true'},
             ]
         };
 
         let selectedItem = null;
         const orders = {};
+
+        function checkAndSubmitOrder() {
+            if (Object.keys(orders).length === 0) {
+                Telegram.WebApp.showPopup({
+                    title: 'Корзина пуста',
+                    message: 'Выберите что-нибудь из меню для заказа',
+                    buttons: [
+                        { id: 'ok', type: 'close', text: 'OK' }
+                    ]
+                });
+            } else {
+                submitOrder();
+            }
+        }
 
         function submitOrder() {
             const selectedItems = Object.keys(orders);
