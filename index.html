@@ -71,9 +71,16 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 0 auto; /* Center the remove button */
         }
         .remove-button:hover {
             background-color: #d32f2f;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
         }
         :root {
             --background-color: #ffffff;
@@ -188,6 +195,7 @@
 
             for (const item of Object.values(orders)) {
                 const li = document.createElement('li');
+                li.className = 'cart-item'; /* Apply the cart-item class for flexbox layout */
                 li.textContent = `${item.name} - ${item.price} ₽ x ${item.quantity}`;
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Удалить';
