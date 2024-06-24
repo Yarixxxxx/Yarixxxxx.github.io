@@ -3,7 +3,101 @@
 <head>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* ... (existing CSS styles) ... */
+        body {
+            font-family: Montserrat, sans-serif;
+            margin: 20px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: 18px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: var(--header-color);
+            font-size: 24px;
+        }
+        .category {
+            margin: 20px 0;
+        }
+        .category ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 18px;
+            display: block;
+        }
+        .category li {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--item-background-color);
+            cursor: pointer;
+        }
+        .item-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .item-container img {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+        .item-container label {
+            display: flex;
+            align-items: center;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            background-color: var(--button-background-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: var(--button-hover-background-color);
+        }
+        .remove-button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --header-color: #000000;
+            --border-color: #ccc;
+            --item-background-color: #f9f9f9;
+            --button-background-color: #4CAF50;
+            --button-text-color: #ffffff;
+            --button-hover-background-color: #45a049;
+        }
+        .dark {
+            --background-color: #1e1e1e;
+            --text-color: #ffffff;
+            --header-color: #ffffff;
+            --border-color: #444;
+            --item-background-color: #2c2c2c;
+            --button-background-color: #5e8c61;
+            --button-text-color: #ffffff;
+            --button-hover-background-color: #6ba374;
+        }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
