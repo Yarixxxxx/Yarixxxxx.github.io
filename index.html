@@ -134,20 +134,7 @@
         function submitOrder() {
             const selectedItems = Object.keys(orders);
             const orderDetails = Object.values(orders);
-            const data = { items: selectedItems };
-
-            fetch('/order', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.status === 'success') {
-                      Telegram.WebApp.sendData(JSON.stringify({ items: orderDetails }));
-                  }
-              });
+            Telegram.WebApp.sendData(JSON.stringify({ items: orderDetails }));
         }
 
         function addToCart() {
