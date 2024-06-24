@@ -149,25 +149,33 @@
         }
 
         function submitOrder() {
-            const selectedItems = Object.keys(orders);
-            const orderDetails = Object.values(orders);
+            const orderDetails = Object.values(orders).map(item => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity
+            }));
             console.log('Sending order data:', orderDetails);
             Telegram.WebApp.sendData(JSON.stringify({ items: orderDetails }));
         }
 
-        function addToCart(item, quantity) {
-            if (item) {
-                if (orders[item.id]) {
-                    orders[item.id].quantity += quantity;
+        function addToCart() {
+            if (selectedItem) {
+                if (orders[selectedItem.id]) {
+                    orders[selectedItem.id].quantity += 1;
                 } else {
-                    orders[item.id] = { ...item, quantity: quantity };
+                    orders[selectedItem.id] = { ...selectedItem, quantity: 1 };
                 }
                 updateCart();
             }
         }
 
         function removeFromCart(itemId) {
-            delete orders[itemId];
+            if (orders[itemId].quantity > 1) {
+                orders[itemId].quantity -= 1;
+            } else {
+                delete orders[itemId];
+            }
             updateCart();
         }
 
@@ -226,17 +234,14 @@
             selectedItem = item;
             Telegram.WebApp.showPopup({
                 title: item.name,
-                message: `Price: ${item.price} ₽\nSelect quantity:`,
+                message: `Price: ${item.price} ₽`,
                 buttons: [
-                    { id: 'add_1', type: 'default', text: '1' },
-                    { id: 'add_2', type: 'default', text: '2' },
-                    { id: 'add_3', type: 'default', text: '3' },
+                    { id: 'add_to_cart', type: 'default', text: 'Добавить в корзину' },
                     { id: 'close', type: 'close', text: 'Закрыть' }
                 ]
             }, (buttonId) => {
-                if (buttonId.startsWith('add_')) {
-                    const quantity = parseInt(buttonId.split('_')[1]);
-                    addToCart(selectedItem, quantity);
+                if (buttonId === 'add_to_cart') {
+                    addToCart();
                 }
             });
         }
