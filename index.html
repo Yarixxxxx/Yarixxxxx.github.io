@@ -134,6 +134,7 @@
         function submitOrder() {
             const selectedItems = Object.keys(orders);
             const orderDetails = Object.values(orders);
+            console.log('Sending order data:', orderDetails);
             Telegram.WebApp.sendData(JSON.stringify({ items: orderDetails }));
         }
 
