@@ -155,9 +155,13 @@
             Telegram.WebApp.sendData(JSON.stringify({ items: orderDetails }));
         }
 
-        function addToCart() {
-            if (selectedItem) {
-                orders[selectedItem.id] = selectedItem;
+        function addToCart(item, quantity) {
+            if (item) {
+                if (orders[item.id]) {
+                    orders[item.id].quantity += quantity;
+                } else {
+                    orders[item.id] = { ...item, quantity: quantity };
+                }
                 updateCart();
             }
         }
@@ -174,14 +178,14 @@
 
             for (const item of Object.values(orders)) {
                 const li = document.createElement('li');
-                li.textContent = `${item.name} - ${item.price} ₽`;
+                li.textContent = `${item.name} - ${item.price} ₽ x ${item.quantity}`;
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.className = 'remove-button';
                 removeButton.onclick = () => removeFromCart(item.id);
                 li.appendChild(removeButton);
                 cartItems.appendChild(li);
-                total += item.price;
+                total += item.price * item.quantity;
             }
 
             document.getElementById('totalPrice').textContent = `Total: ${total} ₽`;
@@ -222,14 +226,17 @@
             selectedItem = item;
             Telegram.WebApp.showPopup({
                 title: item.name,
-                message: `Price: ${item.price} ₽`,
+                message: `Price: ${item.price} ₽\nSelect quantity:`,
                 buttons: [
-                    { id: 'add_to_cart', type: 'default', text: 'Добавить в корзину' },
+                    { id: 'add_1', type: 'default', text: '1' },
+                    { id: 'add_2', type: 'default', text: '2' },
+                    { id: 'add_3', type: 'default', text: '3' },
                     { id: 'close', type: 'close', text: 'Закрыть' }
                 ]
             }, (buttonId) => {
-                if (buttonId === 'add_to_cart') {
-                    addToCart();
+                if (buttonId.startsWith('add_')) {
+                    const quantity = parseInt(buttonId.split('_')[1]);
+                    addToCart(selectedItem, quantity);
                 }
             });
         }
