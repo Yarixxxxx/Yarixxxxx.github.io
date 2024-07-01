@@ -81,8 +81,8 @@
             background-color: #d32f2f;
         }
         .remove-button:focus {
-	outline: none;
-}
+            outline: none;
+        }
         .back-button {
             display: block;
             background-color: #ffa500;
@@ -229,6 +229,8 @@
                 delete orders[itemId];
             }
             updateCart();
+            // Remove focus from the button
+            document.activeElement.blur();
         }
 
         function updateCart() {
