@@ -221,15 +221,16 @@
             }
         }
 
-        function removeFromCart(itemId) {
-            if (orders[itemId].quantity > 1) {
-                orders[itemId].quantity -= 1;
-            } else {
-                delete orders[itemId];
-            }
-            updateCart();
-            document.activeElement.blur();
-        }
+       function removeFromCart(itemId, buttonElement) {
+    if (orders[itemId].quantity > 1) {
+        orders[itemId].quantity -= 1;
+    } else {
+        delete orders[itemId];
+    }
+    updateCart();
+    buttonElement.blur();
+}
+
 
         function updateCart() {
             const cartItems = document.getElementById('cartItems');
