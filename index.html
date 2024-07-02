@@ -121,6 +121,7 @@
             left:0px;
             width:100%;
             height:100%;
+            transition:top 0ms ease-in-out 300ms;
         }
         .popup .overlay{
              position:fixed;
@@ -362,7 +363,8 @@
                 items.forEach(item => {
                     const li = document.createElement('li');
                     li.className = 'item-container';
-                    li.onclick = () => showPopup(item);
+                    let popup = createPopup("#popup");
+        document.querySelector("#open-popup").addEventListener("click", popup);
 
                     const img = document.createElement('img');
                     img.src = item.image;
@@ -379,7 +381,23 @@
                 menuContainer.appendChild(categoryDiv);
             }
         }
+        function createPopup(id){
+            let popupNode = document.querySelector(id);
+            let overlay = popupNode.querySelector(".overlay");
+            let closebtn = popupNode.querySelector(".close-btn");
+            function openPopup(){
+                popupNode.classList.add("active");
+            }
+            function closePopup(){
+                popupNode.classList.remove("active");
+            }
+            overlay.addEventListener("click", closePopup);
+            closeBtn.addEventListener("click", closePopup);
+            return openPopup;
+        }
 
+        
+        
         function showPopup(item) {
             selectedItem = item;
             Telegram.WebApp.showPopup({
