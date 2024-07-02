@@ -253,7 +253,7 @@
         <button type="back-button" onclick="navigateToMenu()">Вернуться к меню</button>
     </div>
 
-    <div id = "popup" class="hidden">
+    <div id = "popup">
         <div class="overlay"></div>
         <div class="popup-content">
             <h2>Цезарь</h2>
@@ -363,7 +363,7 @@
                 items.forEach(item => {
                     const li = document.createElement('li');
                     li.className = 'item-container';
-                    let popup = createPopup("#popup");
+                    let popup = createPopup(item);
         document.querySelector("#open-popup").addEventListener("click", popup);
 
                     const img = document.createElement('img');
