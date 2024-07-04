@@ -156,13 +156,6 @@
         .popup h2 {
             margin: 0 0 20px;
         }
-        .popup button {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 24px;
-            padding: 5px; /* Adjusted padding */
-            width: auto; /* Adjusted width */
-        }
         .popup.show {
             bottom: 0;
         }
@@ -231,7 +224,7 @@
         <img id="popupImage" src="" alt="">
         <p id="popupDescription"></p>
         <p id="popupMessage"></p>
-        <button id="popupButton"></button>
+        <button id="popupButton" class="button"></button>
     </div>
 
     <script>
@@ -393,6 +386,7 @@
             document.getElementById('popupDescription').textContent = description;
             const popupButton = document.getElementById('popupButton');
             popupButton.textContent = buttonText;
+            popupButton.className = 'button';
             popupButton.onclick = () => {
                 buttonAction();
                 closePopup();
