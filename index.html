@@ -208,6 +208,15 @@
                 font-size: 34px;
             }
         }
+        .popup img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .popup p {
+            font-size: 24px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -229,6 +238,8 @@
     <div id="customPopup" class="popup hidden">
         <button class="close-button" onclick="closePopup()">×</button>
         <h2 id="popupTitle"></h2>
+        <img id="popupImage" src="" alt="">
+        <p id="popupDescription"></p>
         <p id="popupMessage"></p>
         <button id="popupButton"></button>
     </div>
@@ -236,14 +247,50 @@
     <script>
         const menu = {
             'Салаты': [
-                {'id': '1', 'name': 'Морской салат', 'price': 559, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg?raw=true'},
-                {'id': '2', 'name': 'Цезарь', 'price': 439, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg?raw=true'},
-                {'id': '3', 'name': 'Витаминный салат', 'price': 499, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/vitamine.jpeg?raw=true'},
+                {
+                    'id': '1',
+                    'name': 'Морской салат',
+                    'price': 559,
+                    'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg?raw=true',
+                    'description': 'Свежий морской салат с креветками и кальмарами.'
+                },
+                {
+                    'id': '2',
+                    'name': 'Цезарь',
+                    'price': 439,
+                    'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg?raw=true',
+                    'description': 'Классический салат Цезарь с курицей, яйцом и сыром.'
+                },
+                {
+                    'id': '3',
+                    'name': 'Витаминный салат',
+                    'price': 499,
+                    'image': 'https://github.com/Yarixxxxx/Photos/blob/main/vitamine.jpeg?raw=true',
+                    'description': 'Полезный витаминный салат с свежими овощами.'
+                }
             ],
             'Супы': [
-                {'id': '4', 'name': 'Грибной суп', 'price': 329, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg?raw=true'},
-                {'id': '5', 'name': 'Куриный суп', 'price': 359, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg?raw=true'},
-                {'id': '6', 'name': 'Суп-пюре', 'price': 339, 'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg?raw=true'},
+                {
+                    'id': '4',
+                    'name': 'Грибной суп',
+                    'price': 329,
+                    'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg?raw=true',
+                    'description': 'Ароматный грибной суп с лесными грибами.'
+                },
+                {
+                    'id': '5',
+                    'name': 'Куриный суп',
+                    'price': 359,
+                    'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg?raw=true',
+                    'description': 'Сытный куриный суп с овощами.'
+                },
+                {
+                    'id': '6',
+                    'name': 'Суп-пюре',
+                    'price': 339,
+                    'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg?raw=true',
+                    'description': 'Нежный суп-пюре с сливками и зеленью.'
+                }
             ]
         };
 
@@ -328,7 +375,7 @@
                     li.className = 'item-container';
                     li.onclick = () => {
                         selectedItem = item;
-                        showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
+                        showPopup(item.name, `Цена: ${item.price} ₽`, 'Добавить в корзину', () => addToCart(), item.image, item.description);
                         li.classList.add('item-slide-up');
                     };
 
@@ -348,10 +395,12 @@
             }
         }
 
-        function showPopup(title, message, buttonText, buttonAction) {
+        function showPopup(title, message, buttonText, buttonAction, imageUrl, description) {
             const popup = document.getElementById('customPopup');
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = message;
+            document.getElementById('popupImage').src = imageUrl;
+            document.getElementById('popupDescription').textContent = description;
             const popupButton = document.getElementById('popupButton');
             popupButton.textContent = buttonText;
             popupButton.onclick = () => {
