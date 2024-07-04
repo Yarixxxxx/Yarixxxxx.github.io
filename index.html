@@ -52,20 +52,16 @@
         }
         button {
             display: block;
-            width: calc(100% - 40px);
+            width: 100%;
             padding: 25px;
             font-size: 32px;
             font-family: 'Roboto Slab', serif;
+            margin-top: 20px;
             background-color: var(--button-background-color);
             color: var(--button-text-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            position: fixed;
-            left: 20px;
-            right: 20px;
-            bottom: 60px;
-            z-index: 1000;
         }
         button:hover {
             background-color: var(--button-hover-background-color);
@@ -98,19 +94,15 @@
         .back-button {
             display: block;
             background-color: #ffa500;
-            width: calc(100% - 40px);
+            width: 100%;
             padding: 25px;
             font-size: 32px;
             font-family: 'Roboto Slab', serif;
+            margin-top: 20px;
             color: var(--button-text-color);
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            position: fixed;
-            left: 20px;
-            right: 20px;
-            bottom: 130px;
-            z-index: 1000;
         }
         .back-button:hover {
             background-color: #ffa500;
@@ -166,7 +158,7 @@
         }
         .popup button {
             display: block;
-            width: calc(100% - 40px);
+            width: 100%;
             padding: 25px;
             font-size: 32px;
             font-family: 'Roboto Slab', serif;
@@ -176,6 +168,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            left: 10px;
+            right: 10px;
             left: 80px;
             right: 80px;
         }
@@ -224,6 +218,10 @@
             margin: 10px 0;
             margin-left: 10px;
         }
+        .popup p.composition, .popup p.protein, .popup p.carbs {
+            font-size: 28px;
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -246,6 +244,9 @@
         <h2 id="popupTitle"></h2>
         <img id="popupImage" src="" alt="">
         <p id="popupDescription"></p>
+        <p class="composition"></p>
+        <p class="protein"></p>
+        <p class="carbs"></p>
         <p id="popupMessage"></p>
         <button id="popupButton"></button>
     </div>
@@ -258,21 +259,30 @@
                     'name': 'Морской салат',
                     'price': 559,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg?raw=true',
-                    'description': 'Свежий морской салат с креветками и кальмарами.\nСостав: Креветки, кальмары, зелень, лимонный сок\nБелки: 20 г\nУглеводы: 5 г'
+                    'description': 'Свежий морской салат с креветками и кальмарами.',
+                    'composition': 'Креветки, кальмары, свежие овощи, оливковое масло',
+                    'protein': 'Белки: 15 г',
+                    'carbs': 'Углеводы: 10 г'
                 },
                 {
                     'id': '2',
                     'name': 'Цезарь',
                     'price': 439,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg?raw=true',
-                    'description': 'Классический салат Цезарь с курицей, яйцом и сыром.\nСостав: Курица, яйцо, сыр, салат айсберг, соус Цезарь\nБелки: 25 г\nУглеводы: 10 г'
+                    'description': 'Классический салат Цезарь с курицей, яйцом и сыром.',
+                    'composition': 'Курица, яйцо, сыр, салат ромен, соус цезарь',
+                    'protein': 'Белки: 20 г',
+                    'carbs': 'Углеводы: 15 г'
                 },
                 {
                     'id': '3',
                     'name': 'Витаминный салат',
                     'price': 499,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/vitamine.jpeg?raw=true',
-                    'description': 'Полезный витаминный салат с свежими овощами.\nСостав: Помидоры, огурцы, перец, зелень, оливковое масло\nБелки: 3 г\nУглеводы: 15 г'
+                    'description': 'Полезный витаминный салат с свежими овощами.',
+                    'composition': 'Свежие овощи, оливковое масло, лимонный сок',
+                    'protein': 'Белки: 3 г',
+                    'carbs': 'Углеводы: 12 г'
                 }
             ],
             'Супы': [
@@ -281,21 +291,30 @@
                     'name': 'Грибной суп',
                     'price': 329,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg?raw=true',
-                    'description': 'Ароматный грибной суп с лесными грибами.\nСостав: Лесные грибы, картофель, лук, сливки\nБелки: 4 г\nУглеводы: 10 г'
+                    'description': 'Ароматный грибной суп с лесными грибами.',
+                    'composition': 'Лесные грибы, картофель, морковь, лук, сливки',
+                    'protein': 'Белки: 5 г',
+                    'carbs': 'Углеводы: 15 г'
                 },
                 {
                     'id': '5',
                     'name': 'Куриный суп',
                     'price': 359,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg?raw=true',
-                    'description': 'Сытный куриный суп с овощами.\nСостав: Курица, картофель, морковь, лук, специи\nБелки: 15 г\nУглеводы: 12 г'
+                    'description': 'Сытный куриный суп с овощами.',
+                    'composition': 'Курица, картофель, морковь, лук, зелень',
+                    'protein': 'Белки: 10 г',
+                    'carbs': 'Углеводы: 12 г'
                 },
                 {
                     'id': '6',
                     'name': 'Суп-пюре',
                     'price': 339,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg?raw=true',
-                    'description': 'Нежный суп-пюре с сливками и зеленью.\nСостав: Картофель, морковь, сливки, зелень\nБелки: 3 г\nУглеводы: 20 г'
+                    'description': 'Нежный суп-пюре с сливками и зеленью.',
+                    'composition': 'Картофель, сливки, зелень, чеснок',
+                    'protein': 'Белки: 4 г',
+                    'carbs': 'Углеводы: 18 г'
                 }
             ]
         };
@@ -381,7 +400,17 @@
                     li.className = 'item-container';
                     li.onclick = () => {
                         selectedItem = item;
-                        showPopup(item.name, `Цена: ${item.price} ₽`, 'Добавить в корзину', () => addToCart(), item.image, item.description);
+                        showPopup(
+                            item.name,
+                            `Цена: ${item.price} ₽`,
+                            'Добавить в корзину',
+                            () => addToCart(),
+                            item.image,
+                            item.description,
+                            item.composition,
+                            item.protein,
+                            item.carbs
+                        );
                         li.classList.add('item-slide-up');
                     };
 
@@ -401,12 +430,15 @@
             }
         }
 
-        function showPopup(title, message, buttonText, buttonAction, imageUrl, description) {
+        function showPopup(title, message, buttonText, buttonAction, imageUrl, description, composition, protein, carbs) {
             const popup = document.getElementById('customPopup');
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = message;
             document.getElementById('popupImage').src = imageUrl;
             document.getElementById('popupDescription').textContent = description;
+            document.querySelector('.composition').textContent = composition;
+            document.querySelector('.protein').textContent = protein;
+            document.querySelector('.carbs').textContent = carbs;
             const popupButton = document.getElementById('popupButton');
             popupButton.textContent = buttonText;
             popupButton.onclick = () => {
