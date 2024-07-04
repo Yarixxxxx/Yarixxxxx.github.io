@@ -195,6 +195,20 @@
                 font-size: 34px;
             }
         }
+        /* Animation CSS */
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .item-container.clicked {
+            animation: slideUp 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -312,6 +326,7 @@
                     li.className = 'item-container';
                     li.onclick = () => {
                         selectedItem = item;
+                        li.classList.add('clicked'); // Add the clicked class to trigger animation
                         showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
                     };
 
