@@ -250,6 +250,9 @@
         let selectedItem = null;
         const orders = {};
 
+        let startY = 0;
+        let endY = 0;
+
         function checkAndSubmitOrder() {
             if (Object.keys(orders).length === 0) {
                 showPopup('Корзина пуста', 'Выберите что-нибудь из меню для заказа', 'OK');
@@ -369,6 +372,20 @@
             }, 500);
         }
 
+        function handleTouchStart(event) {
+            startY = event.touches[0].clientY;
+        }
+
+        function handleTouchMove(event) {
+            endY = event.touches[0].clientY;
+        }
+
+        function handleTouchEnd() {
+            if (startY - endY > 50) {
+                closePopup();
+            }
+        }
+
         function navigateToCart() {
             document.getElementById('menuPage').classList.add('hidden');
             document.getElementById('cartPage').classList.remove('hidden');
@@ -390,6 +407,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderMenu();
             applyTheme();
+            const popup = document.getElementById('customPopup');
+            popup.addEventListener('touchstart', handleTouchStart);
+            popup.addEventListener('touchmove', handleTouchMove);
+            popup.addEventListener('touchend', handleTouchEnd);
             Telegram.WebApp.ready();
         });
     </script>
