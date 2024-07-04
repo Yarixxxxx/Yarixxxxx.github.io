@@ -40,13 +40,6 @@
             display: flex;
             align-items: center;
             margin: 10px 0;
-            opacity: 0;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-        .item-container.show {
-            opacity: 1;
-            transform: translateY(0);
         }
         .item-container img {
             width: 120px;
@@ -184,6 +177,19 @@
         .popup.show {
             bottom: 0;
         }
+        .item-slide-up {
+            animation: slideUp 0.5s ease-in-out;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
         @media (max-width: 600px) {
             body {
                 font-size: 36px;
@@ -320,6 +326,7 @@
                     li.onclick = () => {
                         selectedItem = item;
                         showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
+                        li.classList.add('item-slide-up');
                     };
 
                     const img = document.createElement('img');
@@ -332,11 +339,6 @@
                     li.appendChild(img);
                     li.appendChild(label);
                     ul.appendChild(li);
-
-                    // Adding the animation class
-                    setTimeout(() => {
-                        li.classList.add('show');
-                    }, 100);
                 });
                 categoryDiv.appendChild(ul);
                 menuContainer.appendChild(categoryDiv);
