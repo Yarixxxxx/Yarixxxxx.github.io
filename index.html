@@ -325,8 +325,9 @@
                     li.className = 'item-container';
                     li.onclick = () => {
                         selectedItem = item;
-                        showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
                         li.classList.add('item-slide-up');
+                        showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
+                        
                     };
 
                     const img = document.createElement('img');
