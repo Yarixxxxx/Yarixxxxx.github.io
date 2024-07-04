@@ -150,7 +150,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
             width: 80%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
             text-align: center;
             z-index: 1000;
@@ -162,6 +162,18 @@
             margin-top: 20px;
             padding: 10px 20px;
             font-size: 24px;
+        }
+        .popup .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 24px;
+            padding: 5px 10px;
         }
         .popup.hidden {
             display: none;
@@ -203,6 +215,7 @@
     </div>
 
     <div id="customPopup" class="popup hidden">
+        <button class="close-button" onclick="closePopup()">×</button>
         <h2 id="popupTitle"></h2>
         <p id="popupMessage"></p>
         <button id="popupButton"></button>
@@ -298,7 +311,10 @@
                 items.forEach(item => {
                     const li = document.createElement('li');
                     li.className = 'item-container';
-                    li.onclick = () => showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
+                    li.onclick = () => {
+                        selectedItem = item;
+                        showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
+                    };
 
                     const img = document.createElement('img');
                     img.src = item.image;
@@ -336,6 +352,7 @@
         function navigateToCart() {
             document.getElementById('menuPage').classList.add('hidden');
             document.getElementById('cartPage').classList.remove('hidden');
+            updateCart();
         }
 
         function navigateToMenu() {
