@@ -81,15 +81,15 @@
             background-color: #d32f2f;
         }
         .remove-button:focus {
-            outline : 0;
-            -moz-outline : 0;
-            border : 0
+            outline: 0;
+            -moz-outline: 0;
+            border: 0;
             box-shadow: none;
         }
         .remove-button:active {
-            outline : 0;
-            -moz-outline : 0;
-            border : 0
+            outline: 0;
+            -moz-outline: 0;
+            border: 0;
         }
         .back-button {
             display: block;
@@ -140,6 +140,32 @@
         #totalPrice {
             font-size: 40px;
         }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--item-background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+            z-index: 1000;
+        }
+        .popup h2 {
+            margin: 0 0 20px;
+        }
+        .popup button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 24px;
+        }
+        .popup.hidden {
+            display: none;
+        }
         @media (max-width: 600px) {
             body {
                 font-size: 36px;
@@ -173,7 +199,13 @@
         <ul id="cartItems"></ul>
         <p id="totalPrice">Итого: 0 ₽</p>
         <button type="button" onclick="checkAndSubmitOrder()">Сделать заказ</button>
-        <button type="back-button" onclick="navigateToMenu()">Вернуться к меню</button>
+        <button type="button" class="back-button" onclick="navigateToMenu()">Вернуться к меню</button>
+    </div>
+
+    <div id="customPopup" class="popup hidden">
+        <h2 id="popupTitle"></h2>
+        <p id="popupMessage"></p>
+        <button id="popupButton"></button>
     </div>
 
     <script>
@@ -195,13 +227,7 @@
 
         function checkAndSubmitOrder() {
             if (Object.keys(orders).length === 0) {
-                Telegram.WebApp.showPopup({
-                    title: 'Корзина пуста',
-                    message: 'Выберите что-нибудь из меню для заказа',
-                    buttons: [
-                        { id: 'ok', type: 'close', text: 'OK' }
-                    ]
-                });
+                showPopup('Корзина пуста', 'Выберите что-нибудь из меню для заказа', 'OK');
             } else {
                 submitOrder();
             }
@@ -229,16 +255,14 @@
             }
         }
 
-       function removeFromCart(itemId, buttonElement) {
-    if (orders[itemId].quantity > 1) {
-        orders[itemId].quantity -= 1;
-    } else {
-        delete orders[itemId];
-    }
-    updateCart();
-    buttonElement.blur();
-}
-
+        function removeFromCart(itemId) {
+            if (orders[itemId].quantity > 1) {
+                orders[itemId].quantity -= 1;
+            } else {
+                delete orders[itemId];
+            }
+            updateCart();
+        }
 
         function updateCart() {
             const cartItems = document.getElementById('cartItems');
@@ -274,7 +298,7 @@
                 items.forEach(item => {
                     const li = document.createElement('li');
                     li.className = 'item-container';
-                    li.onclick = () => showPopup(item);
+                    li.onclick = () => showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
 
                     const img = document.createElement('img');
                     img.src = item.image;
@@ -292,20 +316,21 @@
             }
         }
 
-        function showPopup(item) {
-            selectedItem = item;
-            Telegram.WebApp.showPopup({
-                title: item.name,
-                message: `Price: ${item.price} ₽`,
-                buttons: [
-                    { id: 'add_to_cart', type: 'default', text: 'Добавить в корзину' },
-                    { id: 'close', type: 'close', text: 'Закрыть' }
-                ]
-            }, (buttonId) => {
-                if (buttonId === 'add_to_cart') {
-                    addToCart();
-                }
-            });
+        function showPopup(title, message, buttonText, buttonAction) {
+            const popup = document.getElementById('customPopup');
+            document.getElementById('popupTitle').textContent = title;
+            document.getElementById('popupMessage').textContent = message;
+            const popupButton = document.getElementById('popupButton');
+            popupButton.textContent = buttonText;
+            popupButton.onclick = () => {
+                buttonAction();
+                closePopup();
+            };
+            popup.classList.remove('hidden');
+        }
+
+        function closePopup() {
+            document.getElementById('customPopup').classList.add('hidden');
         }
 
         function navigateToCart() {
