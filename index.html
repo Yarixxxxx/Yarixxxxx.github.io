@@ -152,7 +152,7 @@
             padding: 20px;
             text-align: center;
             z-index: 1000;
-            transition: bottom 0.3s ease-in-out;
+            transition: bottom 0.5s ease-in-out;
         }
         .popup h2 {
             margin: 0 0 20px;
@@ -325,9 +325,8 @@
                     li.className = 'item-container';
                     li.onclick = () => {
                         selectedItem = item;
-                        li.classList.add('item-slide-up');
                         showPopup(item.name, `Price: ${item.price} ₽`, 'Добавить в корзину', () => addToCart());
-                        
+                        li.classList.add('item-slide-up');
                     };
 
                     const img = document.createElement('img');
@@ -357,7 +356,9 @@
                 closePopup();
             };
             popup.classList.remove('hidden');
-            popup.classList.add('show');
+            setTimeout(() => {
+                popup.classList.add('show');
+            }, 10);
         }
 
         function closePopup() {
@@ -365,7 +366,7 @@
             popup.classList.remove('show');
             setTimeout(() => {
                 popup.classList.add('hidden');
-            }, 300);
+            }, 500);
         }
 
         function navigateToCart() {
