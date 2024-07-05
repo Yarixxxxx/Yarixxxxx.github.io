@@ -164,8 +164,13 @@
             margin: 10px 0;
         }
         .popup .price {
-            font-size: 28px;
+            font-size: 36px;
+            font-weight: bold;
             margin: 5px 0;
+        }
+        .popup .description {
+            font-style: italic;
+            margin: 10px 0;
         }
         .popup img {
             max-width: 100%;
@@ -240,8 +245,8 @@
     <div id="customPopup" class="popup hidden">
         <img id="popupImage" src="" alt="">
         <h2 id="popupTitle"></h2>
-        <p id="popupDescription"></p>
         <p class="price" id="popupMessage"></p>
+        <p class="description" id="popupDescription"></p>
         <p class="composition"></p>
         <p class="protein"></p>
         <p class="carbs"></p>
@@ -399,7 +404,7 @@
                         selectedItem = item;
                         showPopup(
                             item.name,
-                            `Цена: ${item.price} ₽`,
+                            `${item.price} ₽`,
                             'Добавить в корзину',
                             () => addToCart(),
                             item.image,
@@ -432,7 +437,7 @@
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = price;
             document.getElementById('popupImage').src = imageUrl;
-            document.getElementById('popupDescription').textContent = description;
+            document.getElementById('popupDescription').textContent = `"${description}"`;
             document.querySelector('.composition').textContent = composition;
             document.querySelector('.protein').textContent = protein;
             document.querySelector('.carbs').textContent = carbs;
