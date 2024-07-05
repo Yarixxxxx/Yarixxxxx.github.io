@@ -149,12 +149,28 @@
             background-color: var(--item-background-color);
             border-top: 1px solid var(--border-color);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            text-align: center;
+            text-align: left;
             z-index: 1000;
             transition: bottom 0.5s ease-in-out;
+            padding: 20px;
         }
         .popup h2 {
             margin: 0 0 20px;
+            text-align: left;
+            font-size: 32px;
+        }
+        .popup p {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .popup .price {
+            font-size: 28px;
+            margin: 5px 0;
+        }
+        .popup img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
         }
         .popup button {
             display: block;
@@ -168,10 +184,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            left: 10px;
-            right: 10px;
-            left: 80px;
-            right: 80px;
         }
         .popup.show {
             bottom: 0;
@@ -207,21 +219,6 @@
                 font-size: 34px;
             }
         }
-        .popup img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            margin-right: 10px;
-        }
-        .popup p {
-            font-size: 24px;
-            margin: 10px 0;
-            margin-left: 10px;
-        }
-        .popup p.composition, .popup p.protein, .popup p.carbs {
-            font-size: 28px;
-            margin: 5px 0;
-        }
     </style>
 </head>
 <body>
@@ -241,13 +238,13 @@
     </div>
 
     <div id="customPopup" class="popup hidden">
-        <h2 id="popupTitle"></h2>
         <img id="popupImage" src="" alt="">
+        <h2 id="popupTitle"></h2>
         <p id="popupDescription"></p>
+        <p class="price" id="popupMessage"></p>
         <p class="composition"></p>
         <p class="protein"></p>
         <p class="carbs"></p>
-        <p id="popupMessage"></p>
         <button id="popupButton"></button>
     </div>
 
@@ -430,10 +427,10 @@
             }
         }
 
-        function showPopup(title, message, buttonText, buttonAction, imageUrl, description, composition, protein, carbs) {
+        function showPopup(title, price, buttonText, buttonAction, imageUrl, description, composition, protein, carbs) {
             const popup = document.getElementById('customPopup');
             document.getElementById('popupTitle').textContent = title;
-            document.getElementById('popupMessage').textContent = message;
+            document.getElementById('popupMessage').textContent = price;
             document.getElementById('popupImage').src = imageUrl;
             document.getElementById('popupDescription').textContent = description;
             document.querySelector('.composition').textContent = composition;
