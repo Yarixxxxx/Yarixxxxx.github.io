@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
@@ -11,20 +12,25 @@
             color: var(--text-color);
             font-size: 32px;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             text-align: center;
             color: var(--header-color);
             font-size: 40px;
         }
+
         .category {
             margin: 20px 0;
         }
+
         .category ul {
             list-style-type: none;
             padding: 0;
             font-size: 32px;
             display: block;
         }
+
         .category li {
             display: flex;
             align-items: center;
@@ -37,14 +43,17 @@
             font-family: 'Roboto Slab', serif;
             transition: transform 0.2s;
         }
+
         .category li:hover {
             transform: scale(1.02);
         }
+
         .item-container {
             display: flex;
             align-items: center;
             margin: 10px 0;
         }
+
         .item-container img {
             width: 120px;
             height: 120px;
@@ -52,10 +61,12 @@
             border-radius: 10px;
             object-fit: cover;
         }
+
         .item-container label {
             display: flex;
             align-items: center;
         }
+
         button {
             display: block;
             width: 100%;
@@ -70,9 +81,11 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
+
         button:hover {
             background-color: var(--button-hover-background-color);
         }
+
         .remove-button {
             margin-left: 22px;
             background-color: #f44336;
@@ -84,9 +97,11 @@
             display: inline-block;
             font-family: 'Roboto Slab', serif;
         }
+
         .remove-button:hover {
             background-color: #d32f2f;
         }
+
         .back-button {
             display: block;
             background-color: #ffa500;
@@ -100,9 +115,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .back-button:hover {
             background-color: #e69500;
         }
+
         .cart-item {
             display: flex;
             justify-content: space-between;
@@ -110,6 +127,7 @@
             margin: 10px 0;
             font-family: 'Roboto Slab', serif;
         }
+
         :root {
             --background-color: #ffffff;
             --text-color: #000000;
@@ -120,6 +138,7 @@
             --button-text-color: #ffffff;
             --button-hover-background-color: #45a049;
         }
+
         .dark {
             --background-color: #1e1e1e;
             --text-color: #ffffff;
@@ -130,12 +149,15 @@
             --button-text-color: #ffffff;
             --button-hover-background-color: #6ba374;
         }
+
         .hidden {
             display: none;
         }
+
         #totalPrice {
             font-size: 40px;
         }
+
         .popup {
             left: 0;
             right: 0;
@@ -156,25 +178,30 @@
             justify-content: center;
             align-items: center;
         }
+
         .popup h2 {
             margin: 30px 40px;
             text-align: left;
             font-size: 48px;
         }
+
         .popup p {
             margin: 20px 40px;
             font-size: 36px;
         }
+
         .popup .price {
             margin: 20px 40px;
             font-size: 56px;
             font-weight: bold;
         }
+
         .popup .description {
             font-size: 36px;
             margin: 20px 40px;
             font-style: italic;
         }
+
         .popup img {
             max-width: 90%;
             height: auto;
@@ -182,6 +209,7 @@
             display: block;
             border-radius: 10px;
         }
+
         .popup button {
             display: block;
             width: 80%;
@@ -196,57 +224,73 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
+
         .popup button:hover {
             background-color: var(--button-hover-background-color);
         }
+
         .popup.show {
             bottom: 0;
         }
+
         .item-slide-up {
             animation: slideUp 1s ease-in-out;
         }
+
         @keyframes slideUp {
             from {
                 transform: translateY(100%);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
+
         @media (max-width: 600px) {
             body {
                 font-size: 36px;
                 margin: 10px;
             }
-            h1, h2 {
+
+            h1,
+            h2 {
                 font-size: 42px;
             }
+
             .item-container img {
                 width: 100px;
                 height: 100px;
                 margin-right: 10px;
             }
+
             button {
                 padding: 10px;
                 font-size: 34px;
             }
+
             .popup {
                 border-radius: 10px;
             }
+
             .popup h2 {
                 font-size: 42px;
             }
+
             .popup p {
                 font-size: 34px;
             }
+
             .popup .price {
                 font-size: 46px;
             }
+
             .popup .description {
                 font-size: 34px;
             }
+
             .popup button {
                 padding: 15px;
                 font-size: 30px;
@@ -269,21 +313,24 @@
             font-family: 'Roboto Slab', serif;
             transition: opacity 1s ease-out, visibility 1s ease-out;
         }
+
         #splashScreen img {
             max-width: 80%;
             height: auto;
         }
+
         #splashScreen.hidden {
             opacity: 0;
             visibility: hidden;
         }
     </style>
 </head>
+
 <body>
     <div id="splashScreen">
         <img src="https://github.com/Yarixxxxx/Photos/blob/main/logo.jpg?raw=true" alt="Logo">
     </div>
-    
+
     <div id="menuPage">
         <div id="menu">
             <!-- Menu categories will be dynamically generated here -->
@@ -304,9 +351,7 @@
         <h2 id="popupTitle"></h2>
         <p class="price" id="popupMessage"></p>
         <p class="description" id="popupDescription"></p>
-        <p class="composition"></p>
-        <p class="protein"></p>
-        <p class="carbs"></p>
+        <p class="weight"></p>
         <button id="popupButton"></button>
     </div>
 
@@ -318,27 +363,21 @@
                     'name': 'Морской салат',
                     'price': 559,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg?raw=true',
-                    'composition': 'Креветки, кальмары, свежие овощи, оливковое масло',
-                    'protein': 'Белки: 15 г',
-                    'carbs': 'Углеводы: 10 г'
+                    'weight': '300 г'
                 },
                 {
                     'id': '2',
                     'name': 'Цезарь',
                     'price': 439,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg?raw=true',
-                    'composition': 'Курица, яйцо, сыр, салат ромен, соус цезарь',
-                    'protein': 'Белки: 20 г',
-                    'carbs': 'Углеводы: 15 г'
+                    'weight': '250 г'
                 },
                 {
                     'id': '3',
                     'name': 'Витаминный салат',
                     'price': 499,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/vitamine.jpeg?raw=true',
-                    'composition': 'Свежие овощи, оливковое масло, лимонный сок',
-                    'protein': 'Белки: 3 г',
-                    'carbs': 'Углеводы: 12 г'
+                    'weight': '200 г'
                 }
             ],
             'Супы': [
@@ -347,27 +386,21 @@
                     'name': 'Грибной суп',
                     'price': 329,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg?raw=true',
-                    'composition': 'Лесные грибы, картофель, морковь, лук, сливки',
-                    'protein': 'Белки: 5 г',
-                    'carbs': 'Углеводы: 15 г'
+                    'weight': '400 г'
                 },
                 {
                     'id': '5',
                     'name': 'Куриный суп',
                     'price': 359,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg?raw=true',
-                    'composition': 'Курица, картофель, морковь, лук, зелень',
-                    'protein': 'Белки: 10 г',
-                    'carbs': 'Углеводы: 12 г'
+                    'weight': '350 г'
                 },
                 {
                     'id': '6',
                     'name': 'Суп-пюре',
                     'price': 339,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg?raw=true',
-                    'composition': 'Картофель, сливки, зелень, чеснок',
-                    'protein': 'Белки: 4 г',
-                    'carbs': 'Углеводы: 18 г'
+                    'weight': '300 г'
                 }
             ]
         };
@@ -466,10 +499,7 @@
                             'Добавить в корзину',
                             addToCart,
                             item.image,
-                            item.description,
-                            item.composition,
-                            item.protein,
-                            item.carbs
+                            item.weight
                         );
                         li.classList.add('item-slide-up');
                     };
@@ -490,15 +520,12 @@
             }
         }
 
-        function showPopup(title, price, buttonText, buttonAction, imageUrl = '', description = '', composition = '', protein = '', carbs = '') {
+        function showPopup(title, price, buttonText, buttonAction, imageUrl = '', description = '') {
             const popup = document.getElementById('customPopup');
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = price;
             document.getElementById('popupImage').src = imageUrl;
             document.getElementById('popupDescription').textContent = description;
-            document.querySelector('.composition').textContent = composition;
-            document.querySelector('.protein').textContent = protein;
-            document.querySelector('.carbs').textContent = carbs;
             const popupButton = document.getElementById('popupButton');
             popupButton.textContent = buttonText;
             popupButton.onclick = () => {
@@ -567,4 +594,5 @@
         });
     </script>
 </body>
+
 </html>
