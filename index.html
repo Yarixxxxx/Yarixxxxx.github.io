@@ -265,10 +265,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 48px;
             z-index: 10000;
             font-family: 'Roboto Slab', serif;
             transition: opacity 1s ease-out, visibility 1s ease-out;
+        }
+        #splashScreen img {
+            max-width: 80%;
+            height: auto;
         }
         #splashScreen.hidden {
             opacity: 0;
@@ -277,7 +280,9 @@
     </style>
 </head>
 <body>
-    <div id="splashScreen">Welcome to Our App</div>
+    <div id="splashScreen">
+        <img src="https://github.com/Yarixxxxx/Photos/blob/main/logo.jpg?raw=true" alt="Logo">
+    </div>
     
     <div id="menuPage">
         <div id="menu">
