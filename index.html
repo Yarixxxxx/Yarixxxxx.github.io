@@ -252,9 +252,33 @@
                 font-size: 30px;
             }
         }
+
+        /* Splash Screen Styles */
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            z-index: 10000;
+            font-family: 'Roboto Slab', serif;
+            transition: opacity 1s ease-out, visibility 1s ease-out;
+        }
+        #splashScreen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
+    <div id="splashScreen">Welcome to Our App</div>
+    
     <div id="menuPage">
         <div id="menu">
             <!-- Menu categories will be dynamically generated here -->
@@ -274,6 +298,7 @@
         <img id="popupImage" src="" alt="">
         <h2 id="popupTitle"></h2>
         <p class="price" id="popupMessage"></p>
+        <p class="description" id="popupDescription"></p>
         <p class="composition"></p>
         <p class="protein"></p>
         <p class="carbs"></p>
@@ -288,6 +313,7 @@
                     'name': 'Морской салат',
                     'price': 559,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/e.857b1c211c68fe07b0320a2e3b383ff0.jpg?raw=true',
+                    'description': 'Свежий морской салат с креветками и кальмарами.',
                     'composition': 'Креветки, кальмары, свежие овощи, оливковое масло',
                     'protein': 'Белки: 15 г',
                     'carbs': 'Углеводы: 10 г'
@@ -297,6 +323,7 @@
                     'name': 'Цезарь',
                     'price': 439,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/%D1%86%D0%B5%D0%B7%D0%B0%D1%80%D1%8C-%D1%81-%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9.jpg?raw=true',
+                    'description': 'Классический салат Цезарь с курицей, яйцом и сыром.',
                     'composition': 'Курица, яйцо, сыр, салат ромен, соус цезарь',
                     'protein': 'Белки: 20 г',
                     'carbs': 'Углеводы: 15 г'
@@ -306,6 +333,7 @@
                     'name': 'Витаминный салат',
                     'price': 499,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/vitamine.jpeg?raw=true',
+                    'description': 'Полезный витаминный салат с свежими овощами.',
                     'composition': 'Свежие овощи, оливковое масло, лимонный сок',
                     'protein': 'Белки: 3 г',
                     'carbs': 'Углеводы: 12 г'
@@ -317,6 +345,7 @@
                     'name': 'Грибной суп',
                     'price': 329,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/sup-iz-lesnikh-gribov-krasivo-3.jpg?raw=true',
+                    'description': 'Ароматный грибной суп с лесными грибами.',
                     'composition': 'Лесные грибы, картофель, морковь, лук, сливки',
                     'protein': 'Белки: 5 г',
                     'carbs': 'Углеводы: 15 г'
@@ -326,6 +355,7 @@
                     'name': 'Куриный суп',
                     'price': 359,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/chicken%20soup.jpeg?raw=true',
+                    'description': 'Сытный куриный суп с овощами.',
                     'composition': 'Курица, картофель, морковь, лук, зелень',
                     'protein': 'Белки: 10 г',
                     'carbs': 'Углеводы: 12 г'
@@ -335,6 +365,7 @@
                     'name': 'Суп-пюре',
                     'price': 339,
                     'image': 'https://github.com/Yarixxxxx/Photos/blob/main/pure.jpg?raw=true',
+                    'description': 'Нежный суп-пюре с сливками и зеленью.',
                     'composition': 'Картофель, сливки, зелень, чеснок',
                     'protein': 'Белки: 4 г',
                     'carbs': 'Углеводы: 18 г'
@@ -436,6 +467,7 @@
                             'Добавить в корзину',
                             addToCart,
                             item.image,
+                            item.description,
                             item.composition,
                             item.protein,
                             item.carbs
@@ -464,6 +496,7 @@
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = price;
             document.getElementById('popupImage').src = imageUrl;
+            document.getElementById('popupDescription').textContent = description;
             document.querySelector('.composition').textContent = composition;
             document.querySelector('.protein').textContent = protein;
             document.querySelector('.carbs').textContent = carbs;
@@ -527,6 +560,11 @@
             popup.addEventListener('touchmove', handleTouchMove);
             popup.addEventListener('touchend', handleTouchEnd);
             Telegram.WebApp.ready();
+
+            // Hide the splash screen after 2 seconds
+            setTimeout(() => {
+                document.getElementById('splashScreen').classList.add('hidden');
+            }, 2000);
         });
     </script>
 </body>
