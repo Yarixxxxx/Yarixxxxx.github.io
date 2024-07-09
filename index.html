@@ -330,7 +330,7 @@
 
         function checkAndSubmitOrder() {
             if (Object.keys(orders).length === 0) {
-                showPopup('Корзина пуста', 'Выберите что-нибудь из меню для заказа', 'OK', closePopup);
+                showPopup('Корзина пуста, выберите что-нибудь из меню для заказа', 'OK', closePopup);
             } else {
                 submitOrder();
             }
