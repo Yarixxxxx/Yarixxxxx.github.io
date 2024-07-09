@@ -162,19 +162,16 @@
         .popup p {
             margin: 20px 40px;
             font-size: 36px;
-           
         }
         .popup .price {
             margin: 20px 40px;
             font-size: 56px;
             font-weight: bold;
-            
         }
         .popup .description {
             font-size: 36px;
             margin: 20px 40px;
             font-style: italic;
-            
         }
         .popup img {
             max-width: 100%;
@@ -333,7 +330,7 @@
 
         function checkAndSubmitOrder() {
             if (Object.keys(orders).length === 0) {
-                showPopup('Корзина пуста', 'Выберите что-нибудь из меню для заказа', 'OK');
+                showPopup('Корзина пуста', 'Выберите что-нибудь из меню для заказа', 'OK', closePopup);
             } else {
                 submitOrder();
             }
@@ -410,7 +407,7 @@
                             item.name,
                             `${item.price} ₽`,
                             'Добавить в корзину',
-                            () => addToCart(),
+                            addToCart,
                             item.image,
                             item.description,
                             item.composition,
@@ -436,7 +433,7 @@
             }
         }
 
-        function showPopup(title, price, buttonText, buttonAction, imageUrl, description, composition, protein, carbs) {
+        function showPopup(title, price, buttonText, buttonAction, imageUrl = '', description = '', composition = '', protein = '', carbs = '') {
             const popup = document.getElementById('customPopup');
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = price;
