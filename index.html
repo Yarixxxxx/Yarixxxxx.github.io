@@ -151,6 +151,10 @@
             z-index: 1000;
             transition: bottom 0.5s ease-in-out;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .popup h2 {
             margin: 30px 40px;
@@ -353,7 +357,14 @@
 
         function checkAndSubmitOrder() {
             if (Object.keys(orders).length === 0) {
-                showPopup('Корзина пуста', 'Выберите что-нибудь из меню для заказа', 'OK', closePopup);
+                showPopup(
+                    'Корзина пуста',
+                    '',
+                    'OK',
+                    closePopup,
+                    '',
+                    'Выберите что-нибудь из меню, ваша корзина пуста'
+                );
             } else {
                 submitOrder();
             }
@@ -461,7 +472,7 @@
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupMessage').textContent = price;
             document.getElementById('popupImage').src = imageUrl;
-            document.getElementById('popupDescription').textContent = `"${description}"`;
+            document.getElementById('popupDescription').textContent = description;
             document.querySelector('.composition').textContent = composition;
             document.querySelector('.protein').textContent = protein;
             document.querySelector('.carbs').textContent = carbs;
